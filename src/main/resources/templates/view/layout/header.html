@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Title</title>
+</head>
+<body>
+<!--<nav th:fragment="header" class="navbar navbar-inverse navbar-fixed-top">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<a class="navbar-brand" href="#">Project name</a>-->
+        <!--</div>-->
+        <!--<div id="navbar" class="navbar-collapse collapse">-->
+            <!--<form class="navbar-form navbar-right">-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" placeholder="Email" class="form-control">-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-success">Sign in</button>-->
+            <!--</form>-->
+        <!--</div>&lt;!&ndash;/.navbar-collapse &ndash;&gt;-->
+    <!--</div>-->
+<!--</nav>-->
+<nav th:fragment="header" class="navbar navbar-default">
+    <div class="container margintop30">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header marginright40">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a href="{:U('System/Index/index')}"><img src="__PUBLIC__/Common/images/logo.png" class="l" /></a> </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="current"><a href="{:U('System/Index/index')}">首页</a></li>
+                <li><a href="{:U('Design/Design/index')}">设计中心</a></li>
+                <li><a href="{:U('System/Product/index')}">产品中心</a></li>
+            </ul>
+            <form action="" class="navbar-form navbar-right" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入转换数字">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success">转换</button>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <!--<if condition="$userId gt 0 ">-->
+
+                    <li class="dropdown"> <a href="{:U('System/Wode/index')}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的蜗牛窝 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{:U('System/Wode/index')}">个人资料</a></li>
+                            <li><a href="{:U('System/Anquan/xiugai')}">修改密码</a></li>
+                            <li><a href="{:U('System/Anquan/index')}">绑定手机/邮箱</a></li>
+                            <li><a href="{:U('System/Shoucang/index')}">我的收藏</a></li>
+                            <li><a href="{:U('System/login/logout')}">退出登录</a></li>
+                        </ul>
+                    </li>
+                    <!--<else />-->
+                    <!--<li><a href="{:U('System/login/index')}">登录</a></li>-->
+                    <!--<li><a href="{:U('System/regsiter/index')}">注册{$menuid}</a></li>-->
+                <!--</if>-->
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+</body>
+</html>

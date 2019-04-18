@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>订单详情</title>
+
+    <!--<script th:src="@{/myui/common.js}" type="text/javascript"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+
+
+    <link rel="stylesheet" th:href="@{/myui/css/main.css}"/>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body class="">
+<div th:replace="view/layout/header :: header"></div>
+<div class="container-fluid">
+
+    <!--左侧导航栏-->
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <ul class="nav nav-sider">
+                <li class="active"><a href="">我的资料</a></li>
+                <li><a href="">教师信息</a></li>
+                <li><a href="">订单信息</a></li>
+                <li><a href="">站内信</a></li>
+                <li><a href="">发布家教信息</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 右侧内容 -->
+    <div class="col-md-10  col-md-offset-1 main">
+        <h2>订单详情</h2>
+        <hr>
+        <!--订单搜索-->
+        <div style="padding: 100px 100px 10px;">
+            <form action="">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="输入订单号">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </form>
+        </div>
+
+        
+    </div>
+
+
+</div>
+
+</body>
+</html>
