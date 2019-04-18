@@ -9,7 +9,11 @@ public interface InsiteMessageMapper {
 
     int insertSelective(InsiteMessage record);
 
+
+
     InsiteMessage selectByPrimaryKey(Integer id);
+
+    int selectUnreadMessage(Integer receiverId);
 
     int updateByPrimaryKeySelective(InsiteMessage record);
 

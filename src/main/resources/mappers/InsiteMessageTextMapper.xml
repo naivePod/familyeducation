@@ -46,13 +46,13 @@
     delete from insite_message_text
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lgs.entity.InsiteMessageText">
+  <insert id="insert" parameterType="com.lgs.entity.InsiteMessageText" useGeneratedKeys="true" keyProperty="id">
     insert into insite_message_text (id, title, create_time, 
       update_time, send_type, creator_id, 
       deleted, module_id, link, 
       content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{sendType,jdbcType=TINYINT}, #{creatorId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, now(),
+      now(), #{sendType,jdbcType=TINYINT}, #{creatorId,jdbcType=INTEGER},
       #{deleted,jdbcType=TINYINT}, #{moduleId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>

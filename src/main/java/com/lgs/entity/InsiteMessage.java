@@ -9,7 +9,7 @@ public class InsiteMessage {
 
     private Integer receiverId;
 
-    private Byte read;
+    private Byte take;
 
     private Byte deleted;
 
@@ -17,11 +17,11 @@ public class InsiteMessage {
 
     private Date updateTime;
 
-    public InsiteMessage(Integer id, Integer messageTextId, Integer receiverId, Byte read, Byte deleted, Date createTime, Date updateTime) {
+    public InsiteMessage(Integer id, Integer messageTextId, Integer receiverId, Byte take, Byte deleted, Date createTime, Date updateTime) {
         this.id = id;
         this.messageTextId = messageTextId;
         this.receiverId = receiverId;
-        this.read = read;
+        this.take = take;
         this.deleted = deleted;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -55,12 +55,12 @@ public class InsiteMessage {
         this.receiverId = receiverId;
     }
 
-    public Byte getRead() {
-        return read;
+    public Byte getTake() {
+        return take;
     }
 
-    public void setRead(Byte read) {
-        this.read = read;
+    public void setTake(Byte take) {
+        this.take = take;
     }
 
     public Byte getDeleted() {

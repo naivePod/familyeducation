@@ -6,14 +6,14 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="message_text_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="receiver_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="read" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="take" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, message_text_id, receiver_id, read, deleted, create_time, update_time
+    id, message_text_id, receiver_id, take, deleted, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,17 +21,27 @@
     from insite_message
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectUnreadMessage" parameterType="java.lang.Integer" resultType="Integer">
+    select
+    count(*)
+    from insite_message
+    where receiver_id = #{recieverId,jdbcType=INTEGER}
+    AND
+    take = 0 and deleted = 0
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from insite_message
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lgs.entity.InsiteMessage">
     insert into insite_message (id, message_text_id, receiver_id, 
-      read, deleted, create_time, 
+      take, deleted, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{messageTextId,jdbcType=INTEGER}, #{receiverId,jdbcType=INTEGER}, 
-      #{read,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{take,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, now(),
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessage">
     insert into insite_message
@@ -45,8 +55,8 @@
       <if test="receiverId != null">
         receiver_id,
       </if>
-      <if test="read != null">
-        read,
+      <if test="take != null">
+        take,
       </if>
       <if test="deleted != null">
         deleted,
@@ -68,8 +78,8 @@
       <if test="receiverId != null">
         #{receiverId,jdbcType=INTEGER},
       </if>
-      <if test="read != null">
-        #{read,jdbcType=TINYINT},
+      <if test="take != null">
+        #{take,jdbcType=TINYINT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=TINYINT},
@@ -91,8 +101,8 @@
       <if test="receiverId != null">
         receiver_id = #{receiverId,jdbcType=INTEGER},
       </if>
-      <if test="read != null">
-        read = #{read,jdbcType=TINYINT},
+      <if test="take != null">
+        take = #{take,jdbcType=TINYINT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=TINYINT},
@@ -110,7 +120,7 @@
     update insite_message
     set message_text_id = #{messageTextId,jdbcType=INTEGER},
       receiver_id = #{receiverId,jdbcType=INTEGER},
-      read = #{read,jdbcType=TINYINT},
+      take = #{take,jdbcType=TINYINT},
       deleted = #{deleted,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
