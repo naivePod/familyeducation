@@ -2,6 +2,11 @@ package com.lgs.interceptor;
 
 import com.lgs.common.BusinessException;
 import com.lgs.common.ServerResponse;
+
+import org.apache.ibatis.mapping.ResultMap;
+import org.apache.shiro.authc.AccountException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class BusinessExceptionHandler {
+
+
+    // 捕捉 CustomRealm 抛出的异常
+    @ExceptionHandler(AccountException.class)
+    public ServerResponse handleShiroException(Exception ex) {
+        return ServerResponse.createByError(ex.getMessage());
+    }
+
+
+
 
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e,HttpServletRequest req){

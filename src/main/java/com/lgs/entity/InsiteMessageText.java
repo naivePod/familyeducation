@@ -13,38 +13,42 @@ public class InsiteMessageText {
 
     private Byte sendType;
 
-    private Integer creatorId;
-
     private Byte deleted;
 
     private Integer moduleId;
 
     private String link;
 
+    private Integer creatorId;
+
+    private String creatorName;
+
     private String content;
 
-    public InsiteMessageText(Integer id, String title, Date createTime, Date updateTime, Byte sendType, Integer creatorId, Byte deleted, Integer moduleId, String link) {
+    public InsiteMessageText(Integer id, String title, Date createTime, Date updateTime, Byte sendType, Byte deleted, Integer moduleId, String link, Integer creatorId, String creatorName) {
         this.id = id;
         this.title = title;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.sendType = sendType;
-        this.creatorId = creatorId;
         this.deleted = deleted;
         this.moduleId = moduleId;
         this.link = link;
+        this.creatorId = creatorId;
+        this.creatorName = creatorName;
     }
 
-    public InsiteMessageText(Integer id, String title, Date createTime, Date updateTime, Byte sendType, Integer creatorId, Byte deleted, Integer moduleId, String link, String content) {
+    public InsiteMessageText(Integer id, String title, Date createTime, Date updateTime, Byte sendType, Byte deleted, Integer moduleId, String link, Integer creatorId, String creatorName, String content) {
         this.id = id;
         this.title = title;
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.sendType = sendType;
-        this.creatorId = creatorId;
         this.deleted = deleted;
         this.moduleId = moduleId;
         this.link = link;
+        this.creatorId = creatorId;
+        this.creatorName = creatorName;
         this.content = content;
     }
 
@@ -92,14 +96,6 @@ public class InsiteMessageText {
         this.sendType = sendType;
     }
 
-    public Integer getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
-    }
-
     public Byte getDeleted() {
         return deleted;
     }
@@ -122,6 +118,22 @@ public class InsiteMessageText {
 
     public void setLink(String link) {
         this.link = link == null ? null : link.trim();
+    }
+
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName == null ? null : creatorName.trim();
     }
 
     public String getContent() {

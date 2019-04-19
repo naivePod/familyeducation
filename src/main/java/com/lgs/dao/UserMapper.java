@@ -12,6 +12,10 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer id);
 
+    User selectByUserName(String username);
+
+    int selectRole(String username);
+
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
@@ -23,6 +27,8 @@ public interface UserMapper {
     User selectUser(@Param("username") String username,@Param("password") String password);
 
     int selectEmail(String email);
+
+    String getPassword(String userName);
 
     User selectUserByUsername(String username);
 

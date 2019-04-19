@@ -1,6 +1,9 @@
 package com.lgs.dao;
 
 import com.lgs.entity.InsiteMessage;
+import com.lgs.vo.MessageVo;
+
+import java.util.List;
 
 public interface InsiteMessageMapper {
     int deleteByPrimaryKey(Integer id);
@@ -9,11 +12,11 @@ public interface InsiteMessageMapper {
 
     int insertSelective(InsiteMessage record);
 
-
-
     InsiteMessage selectByPrimaryKey(Integer id);
 
     int selectUnreadMessage(Integer receiverId);
+
+    List<MessageVo> selectMessages(Integer receiverId);
 
     int updateByPrimaryKeySelective(InsiteMessage record);
 

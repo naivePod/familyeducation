@@ -7,8 +7,6 @@ public class InsiteMessage {
 
     private Integer messageTextId;
 
-    private Integer receiverId;
-
     private Byte take;
 
     private Byte deleted;
@@ -17,14 +15,19 @@ public class InsiteMessage {
 
     private Date updateTime;
 
-    public InsiteMessage(Integer id, Integer messageTextId, Integer receiverId, Byte take, Byte deleted, Date createTime, Date updateTime) {
+    private Integer receiverId;
+
+    private String receiverName;
+
+    public InsiteMessage(Integer id, Integer messageTextId, Byte take, Byte deleted, Date createTime, Date updateTime, Integer receiverId, String receiverName) {
         this.id = id;
         this.messageTextId = messageTextId;
-        this.receiverId = receiverId;
         this.take = take;
         this.deleted = deleted;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.receiverId = receiverId;
+        this.receiverName = receiverName;
     }
 
     public InsiteMessage() {
@@ -45,14 +48,6 @@ public class InsiteMessage {
 
     public void setMessageTextId(Integer messageTextId) {
         this.messageTextId = messageTextId;
-    }
-
-    public Integer getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(Integer receiverId) {
-        this.receiverId = receiverId;
     }
 
     public Byte getTake() {
@@ -85,5 +80,21 @@ public class InsiteMessage {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(Integer receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName == null ? null : receiverName.trim();
     }
 }

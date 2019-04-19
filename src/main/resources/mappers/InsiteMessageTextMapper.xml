@@ -8,10 +8,11 @@
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="send_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="creator_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="module_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="creator_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="creator_name" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.lgs.entity.InsiteMessageText">
@@ -21,15 +22,17 @@
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="send_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="creator_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="module_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="creator_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="creator_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, create_time, update_time, send_type, creator_id, deleted, module_id, link
+    id, title, create_time, update_time, send_type, deleted, module_id, link, creator_id, 
+    creator_name
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -46,15 +49,15 @@
     delete from insite_message_text
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lgs.entity.InsiteMessageText" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.lgs.entity.InsiteMessageText">
     insert into insite_message_text (id, title, create_time, 
-      update_time, send_type, creator_id, 
-      deleted, module_id, link, 
-      content)
+      update_time, send_type, deleted, 
+      module_id, link, creator_id, 
+      creator_name, content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, now(),
-      now(), #{sendType,jdbcType=TINYINT}, #{creatorId,jdbcType=INTEGER},
-      #{deleted,jdbcType=TINYINT}, #{moduleId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      now(), #{sendType,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT},
+      #{moduleId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, 
+      #{creatorName,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessageText">
     insert into insite_message_text
@@ -74,9 +77,6 @@
       <if test="sendType != null">
         send_type,
       </if>
-      <if test="creatorId != null">
-        creator_id,
-      </if>
       <if test="deleted != null">
         deleted,
       </if>
@@ -85,6 +85,12 @@
       </if>
       <if test="link != null">
         link,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="creatorName != null">
+        creator_name,
       </if>
       <if test="content != null">
         content,
@@ -106,9 +112,6 @@
       <if test="sendType != null">
         #{sendType,jdbcType=TINYINT},
       </if>
-      <if test="creatorId != null">
-        #{creatorId,jdbcType=INTEGER},
-      </if>
       <if test="deleted != null">
         #{deleted,jdbcType=TINYINT},
       </if>
@@ -117,6 +120,12 @@
       </if>
       <if test="link != null">
         #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorName != null">
+        #{creatorName,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
@@ -138,9 +147,6 @@
       <if test="sendType != null">
         send_type = #{sendType,jdbcType=TINYINT},
       </if>
-      <if test="creatorId != null">
-        creator_id = #{creatorId,jdbcType=INTEGER},
-      </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=TINYINT},
       </if>
@@ -149,6 +155,12 @@
       </if>
       <if test="link != null">
         link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorName != null">
+        creator_name = #{creatorName,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
@@ -162,10 +174,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       send_type = #{sendType,jdbcType=TINYINT},
-      creator_id = #{creatorId,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=TINYINT},
       module_id = #{moduleId,jdbcType=INTEGER},
       link = #{link,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -175,10 +188,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       send_type = #{sendType,jdbcType=TINYINT},
-      creator_id = #{creatorId,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=TINYINT},
       module_id = #{moduleId,jdbcType=INTEGER},
-      link = #{link,jdbcType=VARCHAR}
+      link = #{link,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      creator_name = #{creatorName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

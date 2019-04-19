@@ -1,16 +1,19 @@
-package com.lgs.controller.foreground;
+package com.lgs.controller;
 
 import com.lgs.common.Const;
 import com.lgs.common.ResponseCode;
 import com.lgs.common.ServerResponse;
+import com.lgs.dao.UserMapper;
 import com.lgs.entity.User;
 import com.lgs.service.IUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -19,27 +22,9 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = "login.do", method = RequestMethod.POST)
-    public ServerResponse<User> login(String username, String password, HttpSession session) {
-        ServerResponse<User> response = userService.login(username, password);
-        if(response.isSuccess()) {
-            session.setAttribute(Const.CURRENT_USER, response.getData());
+    @Resource
+    private UserMapper userMapper;
 
-        }
-        return response;
-    }
-
-    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
-    public ServerResponse<String> logout(HttpSession session) {
-        session.removeAttribute(Const.CURRENT_USER);
-
-        return ServerResponse.createBySuccessMsg("登出成功");
-    }
-
-    @RequestMapping(value = "register.do", method = RequestMethod.POST)
-    public ServerResponse register(User registerInfo) {
-        return userService.register(registerInfo);
-    }
 
     @RequestMapping(value = "check_valid.do", method = RequestMethod.POST)
      
@@ -48,12 +33,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "get_user_info.do", method = RequestMethod.POST)
-     
     public ServerResponse<User> getUserInfo(HttpSession session) {
-        User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null) {
-            return ServerResponse.createByErrorMsg("用户未登录,无法获取当前用户信息");
-        }
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User)subject.getPrincipal();
+
         return ServerResponse.createBySuccess(user);
     }
 

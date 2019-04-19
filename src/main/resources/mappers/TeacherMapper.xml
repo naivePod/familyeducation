@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lgs.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.lgs.entity.Teacher">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="real_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="card_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="qualification_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="qualification" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="city" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="date" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="photo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="verified_image" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, real_name, user_id, username, card_id, qualification_id, qualification, city, 
+    date, photo, verified_image, deleted, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.entity.Teacher">
+    insert into teacher (id, real_name, user_id, 
+      username, card_id, qualification_id, 
+      qualification, city, date, 
+      photo, verified_image, deleted, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{qualificationId,jdbcType=INTEGER}, 
+      #{qualification,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{verifiedImage,jdbcType=VARCHAR}, #{deleted,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.entity.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="qualificationId != null">
+        qualification_id,
+      </if>
+      <if test="qualification != null">
+        qualification,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="verifiedImage != null">
+        verified_image,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationId != null">
+        #{qualificationId,jdbcType=INTEGER},
+      </if>
+      <if test="qualification != null">
+        #{qualification,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedImage != null">
+        #{verifiedImage,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.entity.Teacher">
+    update teacher
+    <set>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationId != null">
+        qualification_id = #{qualificationId,jdbcType=INTEGER},
+      </if>
+      <if test="qualification != null">
+        qualification = #{qualification,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedImage != null">
+        verified_image = #{verifiedImage,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.entity.Teacher">
+    update teacher
+    set real_name = #{realName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      qualification_id = #{qualificationId,jdbcType=INTEGER},
+      qualification = #{qualification,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      verified_image = #{verifiedImage,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

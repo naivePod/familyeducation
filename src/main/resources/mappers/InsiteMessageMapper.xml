@@ -5,15 +5,16 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="message_text_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="receiver_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="take" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="receiver_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="receiver_name" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, message_text_id, receiver_id, take, deleted, create_time, update_time
+    id, message_text_id, take, deleted, create_time, update_time, receiver_id, receiver_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,28 +22,56 @@
     from insite_message
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectUnreadMessage" parameterType="java.lang.Integer" resultType="Integer">
-    select
-    count(*)
-    from insite_message
-    where receiver_id = #{recieverId,jdbcType=INTEGER}
-    AND
-    take = 0 and deleted = 0
-  </select>
-
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from insite_message
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lgs.entity.InsiteMessage">
-    insert into insite_message (id, message_text_id, receiver_id, 
-      take, deleted, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{messageTextId,jdbcType=INTEGER}, #{receiverId,jdbcType=INTEGER}, 
-      #{take,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, now(),
-      now())
+    insert into insite_message (id, message_text_id, take, 
+      deleted, create_time, update_time, 
+      receiver_id, receiver_name)
+    values (#{id,jdbcType=INTEGER}, #{messageTextId,jdbcType=INTEGER}, #{take,jdbcType=TINYINT}, 
+      #{deleted,jdbcType=TINYINT}, now(), now(),
+      #{receiverId,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR})
   </insert>
+
+  <resultMap id="MessageVoMap" type="com.lgs.vo.MessageVo">
+    <result column="take" javaType="java.lang.Byte" jdbcType="TINYINT"  property="take"/>
+    <result column="cdeleted" javaType="java.lang.Byte" jdbcType="TINYINT" property="deleted"/>
+    <result column="ctime" javaType="java.util.Date" jdbcType="TIMESTAMP"  property="createTime"/>
+    <result column="utime" javaType="java.util.Date" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="receiver_id" javaType="java.lang.Integer" jdbcType="INTEGER" property="receiverId"/>
+    <result column="receiver_name" javaType="java.lang.String" jdbcType="VARCHAR" property="receiverName"/>
+    <association property="insiteMessageText" javaType="com.lgs.entity.InsiteMessageText">
+      <constructor>
+        <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        <arg column="send_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+        <arg column="deleted" javaType="java.lang.Byte" jdbcType="TINYINT" />
+        <arg column="module_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <arg column="creator_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        <arg column="creator_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      </constructor>
+    </association>
+  </resultMap>
+
+  <select id="selectMessages" parameterType="java.lang.Integer" resultMap="MessageVoMap">
+    select
+    take, c.deleted cdeleted,c.create_time ctime, c.update_time utime, receiver_id, receiver_name, t.*
+    from insite_message c, insite_message_text t where c.message_text_id = t.id
+    and c.receiver_id = #{id}
+  </select>
+
+  <select id="selectUnreadMessage" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT count(*) from insite_message
+    WHERE receiver_id = #{receiverId} and take = 0 and deleted = 0
+  </select>
+
+
+
   <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessage">
     insert into insite_message
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -51,9 +80,6 @@
       </if>
       <if test="messageTextId != null">
         message_text_id,
-      </if>
-      <if test="receiverId != null">
-        receiver_id,
       </if>
       <if test="take != null">
         take,
@@ -67,6 +93,12 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -74,9 +106,6 @@
       </if>
       <if test="messageTextId != null">
         #{messageTextId,jdbcType=INTEGER},
-      </if>
-      <if test="receiverId != null">
-        #{receiverId,jdbcType=INTEGER},
       </if>
       <if test="take != null">
         #{take,jdbcType=TINYINT},
@@ -90,6 +119,12 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lgs.entity.InsiteMessage">
@@ -97,9 +132,6 @@
     <set>
       <if test="messageTextId != null">
         message_text_id = #{messageTextId,jdbcType=INTEGER},
-      </if>
-      <if test="receiverId != null">
-        receiver_id = #{receiverId,jdbcType=INTEGER},
       </if>
       <if test="take != null">
         take = #{take,jdbcType=TINYINT},
@@ -113,17 +145,24 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lgs.entity.InsiteMessage">
     update insite_message
     set message_text_id = #{messageTextId,jdbcType=INTEGER},
-      receiver_id = #{receiverId,jdbcType=INTEGER},
       take = #{take,jdbcType=TINYINT},
       deleted = #{deleted,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      receiver_id = #{receiverId,jdbcType=INTEGER},
+      receiver_name = #{receiverName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

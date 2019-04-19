@@ -71,23 +71,22 @@
 
         </javaClientGenerator>
 
-        <!--<table  tableName="student"  domainObjectName="Student" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
 
-        <!--<table  tableName="category"  domainObjectName="Category" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
-
-        <!--<table  tableName="sc"  domainObjectName="SC" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
-
-        <!--<table  tableName="course"  domainObjectName="Course" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
-        <!--<table  tableName="user"  domainObjectName="User" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--</table>-->
         <!--<table  tableName="insite_message"  domainObjectName="InsiteMessage" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
         <table  tableName="insite_message_text"  domainObjectName="InsiteMessageText" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
+        <!--<table  tableName="subject"  domainObjectName="Subject" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table  tableName="order"  domainObjectName="Order" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table  tableName="teach_information"  domainObjectName="TeachInformation" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table  tableName="teacher"  domainObjectName="Teacher" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table  tableName="verify_teacher_info"  domainObjectName="VerifyTeacherInfo" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+
 
     </context>
 

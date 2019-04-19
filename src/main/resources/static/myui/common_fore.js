@@ -1,12 +1,11 @@
 function getMessageCount() {
     $.ajax({
         type:"get",
-
-
-        url:"/message/findunread/",
-        datatype:"json",
+        url:"/user/communication/findunread",
+        type:"json",
         success:function(res){
             var data = res.data;
+            console.log(data);
             if(data > 0) {
                 $("message_count").html(data);
                 $("message_count").show();
@@ -21,9 +20,7 @@ function getMessageCount() {
 }
 $(function(){
 
-    var interval = setInterval(function(){
-        getMessageCount();
-    },3000); //每个五秒调用一次函数
+    var interval = setInterval( getMessageCount(),3000); //每个五秒调用一次函数
 
 })
 

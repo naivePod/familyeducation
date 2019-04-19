@@ -1,6 +1,5 @@
 package com.lgs.demo;
 
-import com.lgs.controller.HelloWorldController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +23,7 @@ public class HelloTest {
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HelloWorldController()).build();
+        //mvc = MockMvcBuilders.standaloneSetup(new HelloWorldController()).build();
     }
 
     @Test

@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 
 public class Const {
-    public static final String CURRENT_USER = "currentUser";
+    public static final String CURRENT_USER = "current_account";
     public static final String USER_NAME = "username";
     public static final String EMAIL = "email";
     public static final String PHONE = "phone";
@@ -32,6 +32,7 @@ public class Const {
     public interface Role{
         int ROLE_CUSTOMER = 0;
         int ROLE_ADMIN = 1;
+        int ROLE_TEACHER = 2;
     }
 
     public enum ProductStatus {
