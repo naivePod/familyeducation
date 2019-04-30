@@ -36,6 +36,7 @@
   </insert>
 
   <resultMap id="MessageVoMap" type="com.lgs.vo.MessageVo">
+    <result column="cid" javaType="java.lang.Integer" jdbcType="INTEGER" property="id"/>
     <result column="take" javaType="java.lang.Byte" jdbcType="TINYINT"  property="take"/>
     <result column="cdeleted" javaType="java.lang.Byte" jdbcType="TINYINT" property="deleted"/>
     <result column="ctime" javaType="java.util.Date" jdbcType="TIMESTAMP"  property="createTime"/>
@@ -59,10 +60,17 @@
   </resultMap>
 
   <select id="selectMessages" parameterType="java.lang.Integer" resultMap="MessageVoMap">
-    select
+    select c.id cid,
     take, c.deleted cdeleted,c.create_time ctime, c.update_time utime, receiver_id, receiver_name, t.*
     from insite_message c, insite_message_text t where c.message_text_id = t.id
     and c.receiver_id = #{id}
+  </select>
+
+  <select id="selectUnreadMessages" parameterType="java.lang.Integer" resultMap="MessageVoMap">
+    select c.id cid,
+    take, c.deleted cdeleted,c.create_time ctime, c.update_time utime, receiver_id, receiver_name, t.*
+    from insite_message c, insite_message_text t where c.message_text_id = t.id
+    and c.receiver_id = #{id} and take = 0
   </select>
 
   <select id="selectUnreadMessage" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -72,7 +80,7 @@
 
 
 
-  <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessage">
+  <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessage" useGeneratedKeys="true" keyProperty="id">
     insert into insite_message
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,18 +95,14 @@
       <if test="deleted != null">
         deleted,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
+
       <if test="receiverId != null">
         receiver_id,
       </if>
       <if test="receiverName != null">
         receiver_name,
       </if>
+      create_time,update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -113,18 +117,14 @@
       <if test="deleted != null">
         #{deleted,jdbcType=TINYINT},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="receiverId != null">
         #{receiverId,jdbcType=INTEGER},
       </if>
       <if test="receiverName != null">
         #{receiverName,jdbcType=VARCHAR},
       </if>
+      now(),now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lgs.entity.InsiteMessage">
@@ -142,15 +142,14 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="receiverId != null">
         receiver_id = #{receiverId,jdbcType=INTEGER},
       </if>
       <if test="receiverName != null">
         receiver_name = #{receiverName,jdbcType=VARCHAR},
       </if>
+      update_time = now()
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

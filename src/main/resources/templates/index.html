@@ -16,14 +16,14 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header marginright40">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a href="{:U('System/Index/index')}"><img src="__PUBLIC__/Common/images/logo.png" class="l" /></a> </div>
+            <a th:href="@{user/person.html}"><img src="__PUBLIC__/Common/images/logo.png" class="l" /></a> </div>
 
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="current"><a href="{:U('System/Index/index')}">首页</a></li>
-                <li><a href="{:U('Design/Design/index')}"><i class="person icon"></i>个人中心</a></li>
-                <li><a href="{:U('System/Product/index')}"><i class="talk icon"></i>预约中心</a></li>
+                <li class="current"><a th:href="@{user/person.html}">首页</a></li>
+                <li><a th:href="@{user/person.html}"><i class="person icon"></i>个人中心</a></li>
+                <li><a th:href="@{/educationinfo/list}"><i class="talk icon"></i>预约中心</a></li>
             </ul>
             <form action="" class="navbar-form navbar-right" role="search">
                 <div class="input-group">
@@ -36,19 +36,19 @@
             <ul class="nav navbar-nav navbar-right">
                 <!--<if condition="$userId gt 0 ">-->
 
-                <li class="dropdown" th:if="${current_account != null}"> <a href="{:U('System/Wode/index')}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">通知
+                <li class="dropdown" th:if="${session.current_account} != null"> <a th:href="@{user/person.html}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">通知
                     <span class="caret"> <span style="color:red" id="message_count"></span></span>
                 </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{:U('System/Wode/index')}"><i class="user icon"></i>个人资料</a></li>
-                        <li><a href="{:U('System/Anquan/xiugai')}">修改密码</a></li>
-                        <li><a href="{:U('System/Anquan/index')}">绑定手机/邮箱</a></li>
-                        <li><a href="{:U('System/Shoucang/index')}">站内信 <span>17</span></a></li>
-                        <li><a href="{:U('System/login/logout')}">退出登录</a></li>
+                        <li><a th:href="@{user/person.html}"><i class="user icon"></i>个人资料</a></li>
+                        <li><a th:href="@{user/person.html}">修改密码</a></li>
+                        <li><a th:href="@{user/person.html}">绑定手机/邮箱</a></li>
+                        <li><a th:href="@{user/person.html}">站内信 <span>17</span></a></li>
+                        <li><a th:href="@{user/person.html}">退出登录</a></li>
                     </ul>
                 </li>
-                <li th:if="${current_account == null}"><a href="{:U('System/login/index')}">登录</a></li>
-                <li th:if="${current_account == null}"><a href="{:U('System/regsiter/index')}">注册</a></li>
+                <li th:if="${session.current_account} == null"><a th:href="@{user/person.html}">登录</a></li>
+                <li th:if="${session.current_account }== null"><a th:href="@{user/person.html}">注册</a></li>
             </ul>
         </div>
 
@@ -105,6 +105,18 @@
                 <img class="img-circle" th:src="@{myui/imgs/static.jpg}" alt="Generic placeholder image" width="140" height="140">
                 <h2>Heading</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <img class="img-circle" th:src="@{myui/imgs/static.jpg}" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <img class="img-circle" th:src="@{myui/imgs/static.jpg}" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
                 <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
             </div>
             <div class="col-md-4">

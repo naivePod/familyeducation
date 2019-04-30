@@ -5,18 +5,23 @@ import com.lgs.common.ResponseCode;
 import com.lgs.common.ServerResponse;
 import com.lgs.dao.UserMapper;
 import com.lgs.entity.User;
+import com.lgs.service.IAuditService;
+import com.lgs.service.IFileService;
+import com.lgs.service.ITeacherService;
 import com.lgs.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-@RestController
+@Controller
 @RequestMapping("/user/")
 public class UserController {
     @Autowired
@@ -25,9 +30,18 @@ public class UserController {
     @Resource
     private UserMapper userMapper;
 
+    @Autowired
+    IFileService iFileService;
+
+    @Autowired
+    IAuditService iAuditService;
+
+    @Autowired
+    ITeacherService iTeacherService;
+
 
     @RequestMapping(value = "check_valid.do", method = RequestMethod.POST)
-     
+     @ResponseBody
     public ServerResponse<String> checkValid(String str, String type) {
         return userService.valicate(str, type);
     }
@@ -41,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
-     
+    @ResponseBody
     public ServerResponse<String> resetPassword(String oldPassword, String newPassword, HttpSession session) {
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null) {
@@ -51,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "forget_get_question.do", method = RequestMethod.POST)
-     
+    @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username) {
         ServerResponse<String> forgetResponse = userService.forgetGetQuestion(username);
 
@@ -59,7 +73,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.POST)
-     
+    @ResponseBody
     public ServerResponse<String> queryAnswer(String username, String question, String answer, HttpSession session) {
 
         //todo 重定向
@@ -67,13 +81,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.POST)
-     
+    @ResponseBody
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String token) {
         return userService.forgetResetPassword(username, passwordNew, token);
     }
 
     @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
-     
+    @ResponseBody
     public ServerResponse<User> updateInformation(User user, HttpSession session) {
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
         if(currentUser == null) {
@@ -89,8 +103,7 @@ public class UserController {
         }
         return updateResponse;
     }
-    @RequestMapping(value = "get_information.do", method = RequestMethod.POST)
-     
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
     public ServerResponse<User> getInformation(HttpSession session) {
         User currentUser = (User)session.getAttribute(Const.CURRENT_USER);
         if(currentUser == null) {

@@ -3,6 +3,8 @@ package com.lgs.dao;
 import com.lgs.entity.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,7 +16,8 @@ public interface UserMapper {
 
     User selectByUserName(String username);
 
-    int selectRole(String username);
+    int selectRoleByUsername(String username);
+    List<User> selectByRole(Integer role);
 
     int updateByPrimaryKeySelective(User record);
 
@@ -39,4 +42,5 @@ public interface UserMapper {
     int updatePasswordByUsername(@Param("username") String username,@Param("passwordNew") String passwordNew);
 
     int checkEmailByUserId(@Param("userId") Integer userId,@Param("email") String email);
+
 }

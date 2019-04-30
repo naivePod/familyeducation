@@ -7,28 +7,22 @@ public class Order {
 
     private Integer teacherId;
 
-    private Integer userId;
+    private Integer studentId;
 
-    private String city;
-
-    private String address;
+    private Integer educationInformationId;
 
     private Byte status;
-
-    private String content;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public Order(Integer id, Integer teacherId, Integer userId, String city, String address, Byte status, String content, Date createTime, Date updateTime) {
+    public Order(Integer id, Integer teacherId, Integer studentId, Integer educationInformationId, Byte status, Date createTime, Date updateTime) {
         this.id = id;
         this.teacherId = teacherId;
-        this.userId = userId;
-        this.city = city;
-        this.address = address;
+        this.studentId = studentId;
+        this.educationInformationId = educationInformationId;
         this.status = status;
-        this.content = content;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -53,28 +47,20 @@ public class Order {
         this.teacherId = teacherId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getStudentId() {
+        return studentId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
-    public String getCity() {
-        return city;
+    public Integer getEducationInformationId() {
+        return educationInformationId;
     }
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setEducationInformationId(Integer educationInformationId) {
+        this.educationInformationId = educationInformationId;
     }
 
     public Byte getStatus() {
@@ -83,14 +69,6 @@ public class Order {
 
     public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 
     public Date getCreateTime() {

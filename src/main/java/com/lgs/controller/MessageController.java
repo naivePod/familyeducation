@@ -5,20 +5,24 @@ import com.lgs.common.ServerResponse;
 import com.lgs.entity.InsiteMessageText;
 import com.lgs.entity.User;
 import com.lgs.service.IMessageService;
+import com.lgs.vo.MessageVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/communication")
+@RequestMapping("/user/message")
 public class MessageController {
     @Autowired
     IMessageService iMessageService;
-
+    Logger logger = LoggerFactory.getLogger(MessageController.class);
     @PostMapping("/message")
     public ServerResponse createMessage(InsiteMessageText message,@RequestParam("toid") Integer toId) {
         List ids = new ArrayList();
@@ -36,11 +40,19 @@ public class MessageController {
     }
 
     @GetMapping("/findunread")
-    public ServerResponse findUnreadMessage() {
+    public ServerResponse findUnreadMessageCount() {
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipal();
         int id = user.getId();
         return iMessageService.findUnreadMessageNums(id);
+    }
+    @GetMapping("/unreadmessages")
+    public ServerResponse<List<MessageVo>> findUnreadMessages(HttpServletRequest request) {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User)subject.getPrincipal();
+        int id = user.getId();
+
+        return iMessageService.findUnreadMessages(id);
     }
 
     @GetMapping("/allmessages")

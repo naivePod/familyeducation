@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/myui/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/myui/css/common/ordercenter.css}"/>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+<div th:replace="view/layout/header::header"></div>
+<div class="container-fluid main">
+    <div id="term" class="row">
+        <div class="widget tags">
+            <p>地区</p>
+            <ul class="tag-cloud">
+                <li><a href="" class="btn btn-xs btn-primary">深圳</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">广州</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">北京</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">上海</a></li>
+            </ul>
+            <p>地区</p>
+            <ul class="tag-cloud">
+                <li><a href="" class="btn btn-xs btn-primary">深圳</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">广州</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">北京</a></li>
+                <li><a href="" class="btn btn-xs btn-primary">上海</a></li>
+            </ul>
+        </div>
+
+        <!--<div class="col-md-11 col-md-offset-1 main">-->
+            <!--<div class="breaknav">-->
+                <!--<ul class="breadcrumb">-->
+                    <!--<li><a th:href="@{/educationinfo/ordercenter.html}">所有</a></li>-->
+                    <!--<li th:if="${cur_city} != null"><a th:href="@{/educationinfo/search(city=${city})}" th:text="${cur_city}"></a></li>-->
+                    <!--<li th:if="${cur_subject} != null"><a th:href="@{/educationinfo/search(city=${cur_subject})}" th:text="${cur_subject}"></a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="row" th:each="info:${pageInfo.list}">-->
+                <!--<div class="col-md-4">-->
+                    <!--<img class="img-circle" th:src="@{${info.photo}}" alt="Generic placeholder image" width="140" height="140">-->
+                    <!--<h2 th:text="${info.name}">名字</h2>-->
+                    <!--<p th:text="${info.subject}">辅导科目：</p>-->
+                    <!--<p th:text="${info.lessonTime}">家教时间：</p>-->
+                    <!--<p th:text="${info.lessonLocation}">家教地点：</p>-->
+                    <!--<p th:text="${info.city}">城市</p>-->
+                    <!--<p th:text="${info.price}">时价：</p>-->
+                    <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+</div>
+</body>
+</html>

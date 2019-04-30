@@ -25,13 +25,15 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
 
         // 设置拦截器
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        Map<String, String> filterChainDefinitionMap = new HashMap<>();
         //游客，开发权限
-        filterChainDefinitionMap.put("/guest/**", "anon");
+        filterChainDefinitionMap.put("/educationinfo/**", "anon");
         //用户，需要角色权限 “user”
         filterChainDefinitionMap.put("/user/**", "user");
-        //管理员，需要角色权限 “admin”
-        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
+        filterChainDefinitionMap.put("/order/**", "user");
+        filterChainDefinitionMap.put("/student/**", "user");
+        //管理员，需要角色权限 “manage”
+        filterChainDefinitionMap.put("/manage/**", "roles[manage]");
         //开放登陆接口
         filterChainDefinitionMap.put("/**", "anon");//login
         //其余接口一律拦截

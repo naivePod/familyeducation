@@ -36,9 +36,14 @@
     where username = #{username}
   </select>
 
-  <select id="selectRole" resultType="java.lang.Integer" parameterType="string">
+  <select id="selectRoleByUsername" resultType="java.lang.Integer" parameterType="string">
     SELECT role FROM user
     where username = #{username}
+  </select>
+
+  <select id="selectByRole" resultType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM user
+    where role = #{role}
   </select>
 
 

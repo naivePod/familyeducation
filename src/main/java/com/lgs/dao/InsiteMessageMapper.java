@@ -16,9 +16,14 @@ public interface InsiteMessageMapper {
 
     int selectUnreadMessage(Integer receiverId);
 
+    List<MessageVo>  selectUnreadMessages(Integer receiverId);
+
+
     List<MessageVo> selectMessages(Integer receiverId);
 
     int updateByPrimaryKeySelective(InsiteMessage record);
+
+
 
     int updateByPrimaryKey(InsiteMessage record);
 }

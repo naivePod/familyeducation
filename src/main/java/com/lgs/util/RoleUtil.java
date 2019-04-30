@@ -8,7 +8,7 @@ public class RoleUtil {
         if (id == Const.Role.ROLE_CUSTOMER) {
             return "user";
         } else if (id == Const.Role.ROLE_ADMIN) {
-            return "admin";
+            return "manage";
         } else if (id == Const.Role.ROLE_TEACHER) {
             return "teacher";
         }

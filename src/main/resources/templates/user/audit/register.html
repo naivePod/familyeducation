@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>成为教员</title>
+
+    <!--<script th:src="@{/myui/common.js}" type="text/javascript"></script>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/myui/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css}" />
+    <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <script th:src="@{/myui/js/app.js}" type="text/javascript"></script>
+    <script th:src="@{/myui/js/teacher/register.js}" type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js}"></script>
+</head>
+<body class="">
+<nav th:fragment="header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container margintop30">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header marginright40">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a th:href="@{user/person.html}"><img src="__PUBLIC__/Common/images/logo.png" class="l" /></a> </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ><a th:href="@{user/person.html}">首页</a></li>
+                <li class="active"><a th:href="@{user/person.html}"><i class="person icon"></i>个人中心</a></li>
+                <li><a th:href="@{user/person.html}"><i class="talk icon"></i>预约中心</a></li>
+            </ul>
+            <form action="" class="navbar-form navbar-right" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="搜索内容">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success">搜索</button>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <!--<if condition="$userId gt 0 ">-->
+
+                <li class="dropdown" th:if="${session.current_account} != null"> <a th:href="@{user/person.html}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">通知
+                    <span class="caret"> <span style="color:red" id="message_count"></span></span>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{user/person.html}"><i class="user icon"></i>个人资料</a></li>
+                        <li><a th:href="@{user/person.html}">修改密码</a></li>
+                        <li><a th:href="@{user/person.html}">绑定手机/邮箱</a></li>
+                        <li><a th:href="@{user/person.html}">站内信 <span>17</span></a></li>
+                        <li><a th:href="@{user/person.html}">退出登录</a></li>
+                    </ul>
+                </li>
+                <li th:if="${session.current_account} == null"><a th:href="@{user/person.html}">登录</a></li>
+                <li th:if="${session.current_account }== null"><a th:href="@{user/person.html}">注册</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<div class="container-fluid">
+
+    <!--左侧导航栏-->
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <ul class="nav nav-sider">
+                <li><a th:href="@{/user/person.html}" >我的资料</a></li>
+                <li><a th:href="@{/user/sinformation.html}">学生档案</a></li>
+                <li><a th:href="@{/teacher/information.html}">教师信息</a></li>
+                <li><a th:href="@{/order/information.html}">家教信息</a></li>
+                <li ><a th:href="@{/user/notice.html}">通知</a></li>
+                <li><a th:href="@{/teacher/publish.html}">发布家教信息</a></li>
+                <li class="active"><a th:href="@{/user/audit/registTeacher}">我当教师</a></li>
+            </ul>
+            </ul>
+        </div>
+    </div>
+    <!-- 右侧内容 -->
+    <div class="col-md-10  col-md-offset-1 main">
+        <h2>教员资料</h2>
+        <hr>
+        <div th:if="${audit}">
+            <div th:if="${audit.status == 0}">
+                <p>申请正在审核中</p>
+            </div>
+        </div>
+        <div th:if="${audit} == null">
+            <form class="form-horizontal" role="form" method="post" onsubmit="return register.registerTeacher();">
+
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="sname" class="col-sm-3 control-label">真名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sname"  maxlength="8"
+                                   placeholder="请输入真名" size="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card_id" class="col-sm-3 control-label">身份证</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="card_id"
+                                   placeholder="身份证" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city" class="col-sm-3 control-label">城市</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="city" value="" id="city"
+                                   placeholder="城市">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-3 control-label">居住地</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="address" value="" id="address"
+                                   placeholder="居住地">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-3 control-label">年龄</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="age"  maxlength="2"
+                                   placeholder="年龄" size="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex" class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sex"  maxlength="8"
+                                   placeholder="性别" size="10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="diploma" class="col-sm-3 control-label">学历</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" id="diploma"
+                                   placeholder="学历" maxlength="4">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city" class="col-sm-3 control-label">教授科目一</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"value="" id="suject1"
+                                   placeholder="科目一">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="suject2" class="col-sm-3 control-label">教授科目二</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="address" value="" id="suject2"
+                                   placeholder="科目二">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">自我介绍</label>
+                        <textarea class="col-sm-offset-3 form-control"  id="comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">生活照</label>
+                        <div style="width: 100px" class="col-sm-9">
+                            <input id="file_photo" name="file" type="file" />
+                            <span id="picture_tip_photo"></span>
+                            <input id="token_photo" name="token" type="hidden" value="" />
+                            <img src="" alt="未上传图片" height="100" id="new_photo"style="width: 100px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">学生证</label>
+                        <div style="width: 100px" class="col-sm-9">
+                            <input id="file_verifiedimg" name="file" type="file" />
+                            <span id="picture_tip_verifiedimg"></span>
+                            <input id="token_verifiedimg" name="token" type="hidden" value="" />
+                            <img src="" alt="未上传图片" height="100" id="new_verifiedimg"style="width: 100px;">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        上传
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var contextPath = /*[[${#httpServletRequest.getContextPath()}]]*/;
+
+    $(function(){
+        app.init(contextPath);
+        console.log(contextPath);
+        var interval = setInterval( app.getMessageCount(),600); //每个五秒调用一次函数
+        register.init();
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

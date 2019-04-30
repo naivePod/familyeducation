@@ -6,6 +6,16 @@ import com.lgs.entity.InsiteMessageText;
 import java.util.Date;
 
 public class MessageVo {
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     private InsiteMessageText insiteMessageText;
 
     private Integer receiverId;

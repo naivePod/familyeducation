@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController("/account")
@@ -26,7 +27,7 @@ public class AccountController {
     UserMapper userMapper;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ServerResponse login(String username, String password, HttpSession session) {
+    public ServerResponse login(String username, String password, HttpServletRequest request) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
 
@@ -35,11 +36,14 @@ public class AccountController {
         // 执行认证登陆
         subject.login(token);
         //根据权限，指定返回数据
-        String role = RoleUtil.roleidToString(userMapper.selectRole(username));
+        String role = RoleUtil.roleidToString(userMapper.selectRoleByUsername(username));
+        User user = (User)subject.getPrincipal();
+        request.getSession().setAttribute(Const.CURRENT_USER, user);
+
         if ("user".equals(role)) {
             return ServerResponse.createBySuccess("用户登录成功");
         }
-        if ("admin".equals(role)) {
+        if ("manage".equals(role)) {
             return ServerResponse.createBySuccess("管理员");
         }
         return ServerResponse.createByError("没有该权限");

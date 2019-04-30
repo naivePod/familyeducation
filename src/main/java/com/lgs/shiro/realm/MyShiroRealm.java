@@ -33,7 +33,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = user.getUsername();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //获得该用户角色
-        int roleId = userMapper.selectRole(username);
+        int roleId = userMapper.selectRoleByUsername(username);
         String role = RoleUtil.roleidToString(roleId);
         Set<String> set = new HashSet<>();
         //需要将 role 封装到 Set 作为 info.setRoles() 的参数

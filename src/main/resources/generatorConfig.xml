@@ -74,17 +74,21 @@
 
         <!--<table  tableName="insite_message"  domainObjectName="InsiteMessage" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <table  tableName="insite_message_text"  domainObjectName="InsiteMessageText" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
+        <!--<table  tableName="insite_message_text"  domainObjectName="InsiteMessageText" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
         <!--<table  tableName="subject"  domainObjectName="Subject" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <!--<table  tableName="order"  domainObjectName="Order" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--<table  tableName="education_order"  domainObjectName="Order" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <!--<table  tableName="teach_information"  domainObjectName="TeachInformation" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--<table  tableName="education_information"  domainObjectName="EducationInformation" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
         <!--<table  tableName="teacher"  domainObjectName="Teacher" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
-        <!--<table  tableName="verify_teacher_info"  domainObjectName="VerifyTeacherInfo" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <table  tableName="audit"  domainObjectName="Audit" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+        <!--<table  tableName="student"  domainObjectName="Student" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--</table>-->
+        <!--<table  tableName="education_order"  domainObjectName="Order" enableCountByExample="false"   enableUpdateByExample="false" enableDeleteByExample="false"  enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--</table>-->
 
 

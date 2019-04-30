@@ -5,40 +5,50 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="teacher_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="city" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="student_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="education_information_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="status" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, teacher_id, user_id, city, address, status, content, create_time, update_time
+    id, teacher_id, student_id, education_information_id, status, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from education_order
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByTeacherId" resultType="com.lgs.entity.Order">
+    select
+    <include refid="Base_Column_List" />
+    from education_order
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStudentId" resultType="com.lgs.entity.Order">
+    select
+    <include refid="Base_Column_List" />
+    from education_order
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from education_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lgs.entity.Order">
-    insert into order (id, teacher_id, user_id, 
-      city, address, status, 
-      content, create_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into education_order (id, teacher_id, student_id, 
+      education_information_id, status, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, 
+      #{educationInformationId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.lgs.entity.Order">
-    insert into order
+    insert into education_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -46,20 +56,14 @@
       <if test="teacherId != null">
         teacher_id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="studentId != null">
+        student_id,
       </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="address != null">
-        address,
+      <if test="educationInformationId != null">
+        education_information_id,
       </if>
       <if test="status != null">
         status,
-      </if>
-      <if test="content != null">
-        content,
       </if>
       <if test="createTime != null">
         create_time,
@@ -75,20 +79,14 @@
       <if test="teacherId != null">
         #{teacherId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="educationInformationId != null">
+        #{educationInformationId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -99,25 +97,19 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lgs.entity.Order">
-    update order
+    update education_order
     <set>
       <if test="teacherId != null">
         teacher_id = #{teacherId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="educationInformationId != null">
+        education_information_id = #{educationInformationId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -129,13 +121,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lgs.entity.Order">
-    update order
+    update education_order
     set teacher_id = #{teacherId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      city = #{city,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=INTEGER},
+      education_information_id = #{educationInformationId,jdbcType=INTEGER},
       status = #{status,jdbcType=TINYINT},
-      content = #{content,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

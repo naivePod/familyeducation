@@ -59,7 +59,7 @@
       #{moduleId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, 
       #{creatorName,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessageText">
+  <insert id="insertSelective" parameterType="com.lgs.entity.InsiteMessageText" useGeneratedKeys="true" keyProperty="id">
     insert into insite_message_text
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -68,12 +68,7 @@
       <if test="title != null">
         title,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
+
       <if test="sendType != null">
         send_type,
       </if>
@@ -95,6 +90,7 @@
       <if test="content != null">
         content,
       </if>
+      create_time,update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -103,12 +99,7 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="sendType != null">
         #{sendType,jdbcType=TINYINT},
       </if>
@@ -130,6 +121,7 @@
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
       </if>
+      create_time,update_time
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lgs.entity.InsiteMessageText">
